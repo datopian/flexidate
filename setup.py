@@ -1,9 +1,12 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
-__long_description__ = open('README.rst').read()
+try:
+    __long_description__ = open('README.rst').read()
+except:
+    __long_description__ = ''
 
 setup(
-    name='datautil',
+    name='flexidate',
     version=1.0,
     license='MIT',
     description='Very flexible date parsing and normalization utilities',
@@ -15,7 +18,7 @@ setup(
         # python-dateutil 2.0 has different _parse method, so stick to 1.4.1
         'python-dateutil>=1.0,<1.99',
         ],
-    py_modules=['flexidate.py'],
+    packages=['flexidate'],
     zip_safe=False,
     classifiers = [
         'Development Status :: 5 - Production/Stable',
