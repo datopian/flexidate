@@ -227,8 +227,10 @@ class DateutilDateParser(DateParserBase):
         # Parse the numbers intelligently
         # do not use std parser function as creates lots of default data
         res = dateutil_parser._parse(date, **kwargs)
-        if sys.version_info[0] == 3:
+        try:
             res = res[0]
+        except:
+            res = res
         if res is None:
             # Couldn't parse it
             return None
