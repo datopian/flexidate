@@ -1,0 +1,23 @@
+language: python
+
+python:
+  - "3.4"
+  - "3.5"
+
+before_script:
+  - pip install --upgrade pip
+  - pip install codecov
+  - pip install coveralls
+
+script:
+  # Notes on nose:
+  # Travis CI pre-installs `nose`
+  # https://github.com/coagulant/coveralls-python#nosetests
+  # http://nose.readthedocs.org/en/latest/plugins/skip.html
+  - nosetests --no-skip --with-coverage test_flexidate.py
+
+after_success:
+  - codecov
+  # Notes on Coveralls
+  # https://github.com/coagulant/coveralls-python#usage-travis-ci
+  - coveralls

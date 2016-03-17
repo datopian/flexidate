@@ -6,7 +6,7 @@ try:
     dateutil_parser = dateutil.parser.parser()
 except:
     dateutil_parser = None
-
+import sys
 
 class FlexiDate(object):
     """Store dates as strings and present them in a slightly extended version
@@ -32,7 +32,7 @@ class FlexiDate(object):
          
     def _cvt(self, val, rjust=2, force=False):
         if val:
-            tmp = unicode(val).strip()
+            tmp = str(val).strip()
             if tmp.startswith('-'):
                 tmp = '-' + tmp[1:].rjust(rjust, '0')
             else:
@@ -219,7 +219,8 @@ class DateutilDateParser(DateParserBase):
         # Parse the numbers intelligently
         # do not use std parser function as creates lots of default data
         res = dateutil_parser._parse(date, **kwargs)
-
+        if sys.version_info[0] == 3:
+            res = res[0]
         if res is None:
             # Couldn't parse it
             return None
