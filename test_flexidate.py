@@ -26,7 +26,7 @@ class TestPythonStringOrdering(object):
         assert not '-100' < ' -10'
         assert '10000' < '2000'
         assert not '-10' < ' 1'
-        
+
 
 class TestFlexiDate(object):
     def test_init(self):
@@ -34,9 +34,9 @@ class TestFlexiDate(object):
         assert fd.year == '', fd
         assert fd.month == '', fd
 
-        fd = FlexiDate(2000, 1,1)
+        fd = FlexiDate(2000, 1, 1)
         assert fd.month == '01', fd
-        assert fd.day== '01', fd
+        assert fd.day == '01', fd
 
     def test_str(self):
         fd = FlexiDate(2000, 1, 23)
@@ -51,7 +51,6 @@ class TestFlexiDate(object):
         fd = FlexiDate(qualifier='anything')
         assert str(fd) == ' [anything]'
 
-
     def test_from_str(self):
         def dotest(fd):
             out = FlexiDate.from_str(str(fd))
@@ -63,7 +62,7 @@ class TestFlexiDate(object):
         dotest(fd)
         fd = FlexiDate(-1760, 1, 3, qualifier='fl.')
         dotest(fd)
-    
+
     def test_as_float(self):
         fd = FlexiDate(2000)
         assert fd.as_float() == float(2000), fd.as_float()
@@ -79,7 +78,7 @@ class TestFlexiDate(object):
         assert out == datetime.datetime(2000, 1, 1), out
         fd = FlexiDate(1760, 1, 2)
         out = fd.as_datetime()
-        assert out == datetime.datetime(1760,1,2), out
+        assert out == datetime.datetime(1760, 1, 2), out
 
 
 class TestDateParsers(object):
@@ -164,10 +163,10 @@ class TestDateParsers(object):
     def test_parse_with_none(self):
         d1 = parse(None)
         assert d1 is None
-    
+
     def test_parse_wildcards(self):
         fd = parse('198?')
-        assert fd.year == '', fd.year # expect this to not parse
+        assert fd.year == '', fd.year  # expect this to not parse
         # TODO but we should have a float if possible
 #        assert fd.as_float() == u'1980', fd.as_float()
 
@@ -204,4 +203,3 @@ class TestDateParsers(object):
         in1 = "p1980"
         fd = parse(in1)
         assert str(fd) == "1980", fd
-        
