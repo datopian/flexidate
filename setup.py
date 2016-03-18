@@ -16,7 +16,7 @@ setup(
     url='http://github.com/okfn/flexidate/',
     install_requires=[
         # python-dateutil 2.0 has different _parse method, so stick to 1.4.1
-        'python-dateutil>=1.0,<1.99',
+        'python-dateutil',
         ],
     packages=['flexidate'],
     zip_safe=False,

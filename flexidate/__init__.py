@@ -11,7 +11,6 @@ except:
 class FlexiDate(object):
     """Store dates as strings and present them in a slightly extended version
     of ISO8601.
-
     Modifications:
         * Allow a trailing qualifiers e.g. fl.
         * Allow replacement of unknown values by ? e.g. if sometime in 1800s
@@ -32,7 +31,7 @@ class FlexiDate(object):
          
     def _cvt(self, val, rjust=2, force=False):
         if val:
-            tmp = unicode(val).strip()
+            tmp = str(val).strip()
             if tmp.startswith('-'):
                 tmp = '-' + tmp[1:].rjust(rjust, '0')
             else:
@@ -99,10 +98,8 @@ class FlexiDate(object):
     
     def as_float(self):
         '''Get as a float (year being the integer part).
-
         Replace '?' in year with 9 so as to be conservative (e.g. 19?? becomes
         1999) and elsewhere (month, day) with 0
-
         @return: float.
         '''
         if not self.year: return None
@@ -116,10 +113,8 @@ class FlexiDate(object):
 
     def as_datetime(self):
         '''Get as python datetime.datetime.
-
         Require year to be a valid datetime year. Default month and day to 1 if
         do not exist.
-
         @return: datetime.datetime object.
         '''
         year = int(self.year)
@@ -130,10 +125,8 @@ class FlexiDate(object):
 
 def parse(date, dayfirst=True):
     '''Parse a `date` into a `FlexiDate`.
-
     @param date: the date to parse - may be a string, datetime.date,
     datetime.datetime or FlexiDate.
-
     TODO: support for quarters e.g. Q4 1980 or 1954 Q3
     TODO: support latin stuff like M.DCC.LIII  
     TODO: convert '-' to '?' when used that way
@@ -219,7 +212,10 @@ class DateutilDateParser(DateParserBase):
         # Parse the numbers intelligently
         # do not use std parser function as creates lots of default data
         res = dateutil_parser._parse(date, **kwargs)
-
+        try:
+            res = res[0] #Python3 support
+        except:
+            res = res
         if res is None:
             # Couldn't parse it
             return None
@@ -248,4 +244,3 @@ class DateutilDateParser(DateParserBase):
         else:
             qualifier = ', '.join(qualifiers) + (' : %s' % orig_date)
         return FlexiDate(year, res.month, res.day, qualifier=qualifier)
-    
