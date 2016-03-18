@@ -11,9 +11,9 @@ setup(
     license='MIT',
     description='Very flexible date parsing and normalization utilities',
     long_description=__long_description__,
-    author='Akirato, Open Knowledge Foundation',
-    author_email='info@okfn.org,nurendrachoudhary31@gmail.com',
-    url='http://github.com/Akirato/flexidate_python3/',
+    author='Open Knowledge Foundation',
+    author_email='info@okfn.org',
+    url='http://github.com/okfn/flexidate/',
     install_requires=[
         # python-dateutil 2.0 has different _parse method, so stick to 1.4.1
         'python-dateutil',
