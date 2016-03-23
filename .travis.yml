@@ -9,7 +9,6 @@ python:
 before_script:
   - pip install --upgrade pip
   - pip install codecov
-  - pip install coveralls
   - pip install datetime
   - pip install python-dateutil
 
@@ -22,6 +21,3 @@ script:
 
 after_success:
   - codecov
-  # Notes on Coveralls
-  # https://github.com/coagulant/coveralls-python#usage-travis-ci
-  - coveralls
