@@ -41,7 +41,7 @@ FlexiDate is focused on supporting:
 
 Flexidate builds on the excellent dateutil though it can be used without it.
 
-For more information see this [blog](http://www.rufuspollock.org/2009/06/18/flexible-dates-in-python/) post.
+For more information see [this blog post](http://www.rufuspollock.org/2009/06/18/flexible-dates-in-python/).
 
 
 Developers
