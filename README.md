@@ -1,9 +1,7 @@
-[![Build Status](https://travis-ci.org/okfn/flexidate.svg?branch=master)](https://travis-ci.org/okfn/flexidate)
+[![PyPI version](http://img.shields.io/pypi/dm/flexidate.svg?style=flat)](https://pypi.python.org/pypi/flexidate/) [![Build Status](https://travis-ci.org/okfn/flexidate.svg?branch=master)](https://travis-ci.org/okfn/flexidate) [![codecov.io](http://codecov.io/github/okfn/flexidate/coverage.svg?branch=master)](http://codecov.io/github/okfn/flexidate?branch=master)
 
-[![PyPi downloads](http://img.shields.io/pypi/v/flexidate.svg?style=flat)](https://pypi.python.org/pypi/flexidate/) [![PyPI version](http://img.shields.io/pypi/dm/flexidate.svg?style=flat)](https://pypi.python.org/pypi/flexidate/) 
 
-[![codecov.io](http://codecov.io/github/okfn/flexidate/coverage.svg?branch=master)](http://codecov.io/github/okfn/flexidate?branch=master) 
-
+# About
 
 Date parsing and normalization utilities based on FlexiDate.
 
@@ -34,12 +32,13 @@ Background
 ==========
 
 FlexiDate is focused on supporting:
->1. Dates outside of Python (or DB) supported period (esp. dates < 0 AD)
+
+1. Dates outside of Python (or DB) supported period (esp. dates < 0 AD)
 2. Imprecise dates (c.1860, 18??, fl. 1534, etc)
 3. Normalization of dates to machine processable versions
 4. Sortable in the database (in correct date order)
 
-Flexidate builds on the excellent dateutil though it can be used without it.
+Flexidate builds on the excellent [dateutil](https://dateutil.readthedocs.org/en/latest/), though it can be used without it.
 
 For more information see [this blog post](http://www.rufuspollock.org/2009/06/18/flexible-dates-in-python/).
 
@@ -50,4 +49,3 @@ Developers
 Tests can be found in `test_flexidate.py`.
 
 Patches are welcome - please include additional tests where relevant.
-
