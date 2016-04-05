@@ -28,8 +28,7 @@ However, it's easy to convert to other forms::
     fd.as_datetime() # datetime(1890,01,01)
 
 
-Background
-==========
+# Background
 
 FlexiDate is focused on supporting:
 
@@ -43,9 +42,12 @@ Flexidate builds on the excellent [dateutil](https://dateutil.readthedocs.org/en
 For more information see [this blog post](http://www.rufuspollock.org/2009/06/18/flexible-dates-in-python/).
 
 
-Developers
-==========
+# Developers
 
 Tests can be found in `test_flexidate.py`.
 
 Patches are welcome - please include additional tests where relevant.
+
+# License.
+
+MIT. See `LICENSE`.
