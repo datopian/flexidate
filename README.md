@@ -1,4 +1,4 @@
-[![PyPI version](http://img.shields.io/pypi/dm/flexidate.svg?style=flat)](https://pypi.python.org/pypi/flexidate/) [![Build Status](https://travis-ci.org/okfn/flexidate.svg?branch=master)](https://travis-ci.org/okfn/flexidate) [![codecov.io](http://codecov.io/github/okfn/flexidate/coverage.svg?branch=master)](http://codecov.io/github/okfn/flexidate?branch=master)
+[![PyPi downloads](http://img.shields.io/pypi/v/flexidate.svg?style=flat)](https://pypi.python.org/pypi/flexidate/) [![Build Status](https://travis-ci.org/okfn/flexidate.svg?branch=master)](https://travis-ci.org/okfn/flexidate) [![codecov.io](http://codecov.io/github/okfn/flexidate/coverage.svg?branch=master)](http://codecov.io/github/okfn/flexidate?branch=master)
 
 
 # About
