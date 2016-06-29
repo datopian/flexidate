@@ -27,6 +27,14 @@ However, it's easy to convert to other forms::
     fd.as_float() # 1890
     fd.as_datetime() # datetime(1890,01,01)
 
+Version 1.2 adds the capability for time:
+
+To parse times:
+
+    from flexidate import parse
+    parse('2016-06-01 10') -> FlexiDate(year=u'2016', month=u'01', day=u'06', hour=u'10')
+
+Supports hour, minute, second, and microsecond
 
 # Background
 

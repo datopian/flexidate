@@ -7,7 +7,7 @@ except:
 
 setup(
     name='flexidate',
-    version=1.1,
+    version=1.2,
     license='MIT',
     description='Very flexible date parsing and normalization utilities',
     long_description=__long_description__,
@@ -16,7 +16,8 @@ setup(
     url='http://github.com/okfn/flexidate/',
     install_requires=[
         # python-dateutil 2.0 has different _parse method, so stick to 1.4.1
-        'python-dateutil>=1.0,<1.99',
+        # 'python-dateutil>=1.0,<1.99',
+        'python-dateutil>=2.5',
         ],
     packages=['flexidate'],
     zip_safe=False,
