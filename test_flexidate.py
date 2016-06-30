@@ -92,7 +92,7 @@ class TestDateParsers(object):
         d1 = datetime.datetime(2000, 1, 23)
         fd = parser.parse(d1)
         # assert str(fd) == '2000-01-23T00:00:00', fd
-        assert str(fd) == '2000-01-23', fd
+        assert str(fd) == '2000-01-23 00:00:00.00', fd
 
     def test_using_dateutil(self):
         parser = DateutilDateParser()
@@ -135,11 +135,11 @@ class TestDateParsers(object):
 
         in1 = 'Wed, 06 Jan 2010 09:30:00 GMT'
         fd = parser.parse(in1)
-        assert str(fd) == '2010-01-06', fd
+        assert str(fd) == '2010-01-06 09:30:00.00', fd
 
         in1 = 'Tue, 07 Dec 2010 10:00:00 GMT'
         fd = parser.parse(in1)
-        assert str(fd) == '2010-12-07', fd
+        assert str(fd) == '2010-12-07 10:00:00.00', fd
 
     def test_parse(self):
         d1 = datetime.datetime(2000, 1, 23)

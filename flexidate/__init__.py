@@ -176,6 +176,9 @@ def parse(date, dayfirst=True):
         return date
     if isinstance(date, int):
         return FlexiDate(year=date)
+    elif isinstance(date, datetime.datetime):
+        parser = PythonDateTimeParser()
+        return parser.parse(date)
     elif isinstance(date, datetime.date):
         parser = PythonDateParser()
         return parser.parse(date)
@@ -201,6 +204,12 @@ class DateParserBase(object):
 
 
 class PythonDateParser(object):
+
+    def parse(self, date):
+        return FlexiDate(date.year, date.month, date.day, 0, 0, 0, 0)
+
+
+class PythonDateTimeParser(object):
 
     def parse(self, date):
         return FlexiDate(date.year, date.month, date.day, date.hour, date.minute, date.second, date.microsecond)
