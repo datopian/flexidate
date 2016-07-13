@@ -87,7 +87,6 @@ class TestFlexiDate(object):
 
     def test_isoformat(self):
         fd = FlexiDate(2000, 1, 24)
-        print(fd.isoformat(True))
         assert str(fd.isoformat()) == '2000-01-24'
 
     def test_from_str(self):
@@ -97,7 +96,6 @@ class TestFlexiDate(object):
 
         def dotest2(fd):
             out = FlexiDate.from_str("Not a date")
-            print(str(out))
             assert str(out) == 'None' 
 
         fd = FlexiDate(2000, 1, 23)
