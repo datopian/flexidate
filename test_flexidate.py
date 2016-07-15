@@ -38,6 +38,32 @@ class TestFlexiDate(object):
         assert fd.month == '01', fd
         assert fd.day == '01', fd
 
+        fd = FlexiDate(2004, 3, 2, 10)
+        assert fd.month == '03', fd
+        assert fd.day == '02', fd
+        assert fd.hour == '10', fd
+
+        fd = FlexiDate(2004, 3, 2, 10, 11)
+        assert fd.month == '03', fd
+        assert fd.day == '02', fd
+        assert fd.hour == '10', fd
+        assert fd.minute == '11', fd
+
+        fd = FlexiDate(2004, 3, 2, 10, 11, 12)
+        assert fd.month == '03', fd
+        assert fd.day == '02', fd
+        assert fd.hour == '10', fd
+        assert fd.minute == '11', fd
+        assert fd.second == '12', fd
+
+        fd = FlexiDate(2004, 3, 2, 10, 11, 12, 123456)
+        assert fd.month == '03', fd
+        assert fd.day == '02', fd
+        assert fd.hour == '10', fd
+        assert fd.minute == '11', fd
+        assert fd.second == '12', fd
+        assert fd.microsecond == '123456', fd
+
     def test_str(self):
         fd = FlexiDate(2000, 1, 23)
         assert str(fd) == '2000-01-23', '"%s"' % fd
@@ -51,17 +77,36 @@ class TestFlexiDate(object):
         fd = FlexiDate(qualifier='anything')
         assert str(fd) == ' [anything]'
 
+    def test_repr(self):
+        fd = FlexiDate(2016, 3, 15)
+        assert repr(fd) == "<class 'flexidate.FlexiDate'> 2016-03-15"
+
+    def test_cvt(self):
+        fd = FlexiDate(2016, 3, 16)
+        assert fd._cvt(None, 4, True) == '!!!!'
+
+    def test_isoformat(self):
+        fd = FlexiDate(2000, 1, 24)
+        assert str(fd.isoformat()) == '2000-01-24'
+
     def test_from_str(self):
         def dotest(fd):
             out = FlexiDate.from_str(str(fd))
             assert str(out) == str(fd)
 
+        def dotest2(fd):
+            out = FlexiDate.from_str("Not a date")
+            assert str(out) == 'None' 
+
         fd = FlexiDate(2000, 1, 23)
         dotest(fd)
+        dotest2(fd)
         fd = FlexiDate(1760, qualifier='fl.')
         dotest(fd)
+        dotest2(fd)
         fd = FlexiDate(-1760, 1, 3, qualifier='fl.')
         dotest(fd)
+        dotest2(fd)
 
     def test_as_float(self):
         fd = FlexiDate(2000)
@@ -71,6 +116,8 @@ class TestFlexiDate(object):
         assert fd.as_float() == exp, fd.as_float()
         fd = FlexiDate(-1000)
         assert fd.as_float() == float(-1000)
+        fd = FlexiDate()
+        assert fd.as_float() == None
 
     def test_as_datetime(self):
         fd = FlexiDate(2000)
@@ -92,10 +139,18 @@ class TestDateParsers(object):
         d1 = datetime.datetime(2000, 1, 23)
         fd = parser.parse(d1)
         # assert str(fd) == '2000-01-23T00:00:00', fd
-        assert str(fd) == '2000-01-23', fd
+        assert str(fd) == '2000-01-23 00:00:00.00', fd
 
     def test_using_dateutil(self):
         parser = DateutilDateParser()
+
+        in1 = '2016-06-03 10'
+        fd = parser.parse(in1)
+        assert str(fd) == in1, fd
+
+        in1 = '86'
+        fd = parser.parse(in1)
+        assert str(fd) == '0086' 
 
         in1 = '2001-02'
         fd = parser.parse(in1)
@@ -135,16 +190,24 @@ class TestDateParsers(object):
 
         in1 = 'Wed, 06 Jan 2010 09:30:00 GMT'
         fd = parser.parse(in1)
-        assert str(fd) == '2010-01-06', fd
+        assert str(fd) == '2010-01-06 09:30:00.00', fd
 
         in1 = 'Tue, 07 Dec 2010 10:00:00 GMT'
         fd = parser.parse(in1)
-        assert str(fd) == '2010-12-07', fd
+        assert str(fd) == '2010-12-07 10:00:00.00', fd
+
+        in1 = '2015.03.01'
+        fd = parser.parse(in1)
+        assert str(fd) == '2015-03-01', fd
 
     def test_parse(self):
-        d1 = datetime.datetime(2000, 1, 23)
+        d1 = datetime.date(2000, 1, 23)
         fd = parse(d1)
         assert fd.year == '2000'
+
+        d1 = datetime.datetime(2002, 1, 23)
+        fd = parse(d1)
+        assert fd.year == '2002'
 
         fd = parse('March 1762')
         assert str(fd) == '1762-03'
@@ -154,6 +217,10 @@ class TestDateParsers(object):
 
         fd = parse('22/07/2010')
         assert fd.month == '07', fd.month
+
+        d2 = FlexiDate(1760, 1, 2)
+        fd = parse(d2)
+        assert fd.year == '1760'
 
     def test_parse_ambiguous_day_month(self):
         fd = parse('05/07/2010')

@@ -24,16 +24,21 @@ class FlexiDate(object):
     """
     # pass
 
-    def __init__(self, year=None, month=None, day=None, qualifier=''):
+    def __init__(self, year=None, month=None, day=None, hour=None, minute=None, second=None, microsecond=None, qualifier=''):
         # force = month or day or qualifier
         force = False
         self.year = self._cvt(year, rjust=4, force=force)
         self.month = self._cvt(month)
         self.day = self._cvt(day)
+        self.hour = self._cvt(hour)
+        self.minute = self._cvt(minute)
+        self.second = self._cvt(second)
+        self.microsecond = self._cvt(microsecond)
         self.qualifier = qualifier
 
     def _cvt(self, val, rjust=2, force=False):
-        if val:
+        # Changed from simple check to allow 0 values for minutes or seconds
+        if val is not None:
             tmp = str(val).strip()
             if tmp.startswith('-'):
                 tmp = '-' + tmp[1:].rjust(rjust, '0')
@@ -70,6 +75,16 @@ class FlexiDate(object):
             out += u'-' + val
         if strict:
             out = out.replace('?', '0')
+
+        if self.hour:
+            out += u' '
+            out += self.hour
+            for val in [self.minute, self.second]:
+                if not val:
+                    break
+                out += u':' + val
+            if self.microsecond:
+                out += u'.' + self.microsecond
         return out
 
     our_re_pat = '''
@@ -77,6 +92,10 @@ class FlexiDate(object):
         (?:
                 \s* - (?P<month> [\d?]{1,2})
             (?: \s* - (?P<day> [\d?]{1,2}) )?
+            (?: \s* - (?P<hour> [\d?]{1,2}) )?
+            (?: \s* - (?P<minute> [\d?]{1,2}) )?
+            (?: \s* - (?P<second> [\d?]{1,2}) )?
+            (?: \s* - (?P<microsecond> [\d?]{1,2}) )?
         )?
         \s*
         (?: \[ (?P<qualifier>[^]]*) \])?
@@ -97,6 +116,10 @@ class FlexiDate(object):
                 out.group('year'),
                 out.group('month'),
                 out.group('day'),
+                out.group('hour'),
+                out.group('minute'),
+                out.group('second'),
+                out.group('microsecond'),
                 qualifier=out.group('qualifier')
             )
 
@@ -129,7 +152,11 @@ class FlexiDate(object):
         year = int(self.year)
         month = int(self.month) if self.month else 1
         day = int(self.day) if self.day else 1
-        return datetime.datetime(year, month, day)
+        hour = int(self.hour) if self.hour else 0
+        minute = int(self.minute) if self.minute else 0
+        second = int(self.second) if self.second else 0
+        microsecond = int(self.microsecond) if self.microsecond else 0
+        return datetime.datetime(year, month, day, hour, minute, second, microsecond)
 
 
 def parse(date, dayfirst=True):
@@ -149,6 +176,9 @@ def parse(date, dayfirst=True):
         return date
     if isinstance(date, int):
         return FlexiDate(year=date)
+    elif isinstance(date, datetime.datetime):
+        parser = PythonDateTimeParser()
+        return parser.parse(date)
     elif isinstance(date, datetime.date):
         parser = PythonDateParser()
         return parser.parse(date)
@@ -176,7 +206,13 @@ class DateParserBase(object):
 class PythonDateParser(object):
 
     def parse(self, date):
-        return FlexiDate(date.year, date.month, date.day)
+        return FlexiDate(date.year, date.month, date.day, 0, 0, 0, 0)
+
+
+class PythonDateTimeParser(object):
+
+    def parse(self, date):
+        return FlexiDate(date.year, date.month, date.day, date.hour, date.minute, date.second, date.microsecond)
 
 
 class DateutilDateParser(DateParserBase):
@@ -258,4 +294,4 @@ class DateutilDateParser(DateParserBase):
             qualifier = ''
         else:
             qualifier = ', '.join(qualifiers) + (' : %s' % orig_date)
-        return FlexiDate(year, res.month, res.day, qualifier=qualifier)
+        return FlexiDate(year, res.month, res.day, res.hour, res.minute, res.second, res.microsecond, qualifier=qualifier)
