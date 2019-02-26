@@ -1,8 +1,10 @@
 import datetime
+import unittest
+
 from flexidate import parse, FlexiDate, PythonDateParser, DateutilDateParser
 
 
-class TestPythonStringOrdering(object):
+class TestPythonStringOrdering(unittest.TestCase):
     # It is impossible to find a string format such that +ve and -ve numbers
     # sort correctly as strings:
     # if (in string ordering) X < Y => -X < -Y (False!)
@@ -28,7 +30,7 @@ class TestPythonStringOrdering(object):
         assert not '-10' < ' 1'
 
 
-class TestFlexiDate(object):
+class TestFlexiDate(unittest.TestCase):
     def test_init(self):
         fd = FlexiDate()
         assert fd.year == '', fd
@@ -96,7 +98,7 @@ class TestFlexiDate(object):
 
         def dotest2(fd):
             out = FlexiDate.from_str("Not a date")
-            assert str(out) == 'None' 
+            assert str(out) == 'None'
 
         fd = FlexiDate(2000, 1, 23)
         dotest(fd)
@@ -150,7 +152,7 @@ class TestDateParsers(object):
 
         in1 = '86'
         fd = parser.parse(in1)
-        assert str(fd) == '0086' 
+        assert str(fd) == '0086'
 
         in1 = '2001-02'
         fd = parser.parse(in1)
@@ -270,3 +272,7 @@ class TestDateParsers(object):
         in1 = "p1980"
         fd = parse(in1)
         assert str(fd) == "1980", fd
+
+
+if __name__ == '__main__':
+    unittest.main()

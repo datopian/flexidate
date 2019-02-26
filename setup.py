@@ -7,7 +7,7 @@ except:
 
 setup(
     name='flexidate',
-    version=1.2,
+    version=1.3,
     license='MIT',
     description='Very flexible date parsing and normalization utilities',
     long_description=__long_description__,
