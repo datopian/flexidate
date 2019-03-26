@@ -1,11 +1,12 @@
-[![PyPi downloads](http://img.shields.io/pypi/v/flexidate.svg?style=flat)](https://pypi.python.org/pypi/flexidate/) [![Build Status](https://travis-ci.org/okfn/flexidate.svg?branch=master)](https://travis-ci.org/okfn/flexidate) [![codecov.io](http://codecov.io/github/okfn/flexidate/coverage.svg?branch=master)](http://codecov.io/github/okfn/flexidate?branch=master)
+[![Build Status](https://travis-ci.org/okfn/flexidate.svg?branch=master)](https://travis-ci.org/okfn/flexidate) [![codecov.io](http://codecov.io/github/okfn/flexidate/coverage.svg?branch=master)](http://codecov.io/github/okfn/flexidate?branch=master)
 
 
 # About
 
 The `flexidate` library supports date parsing and normalization using the `FlexiDate` class. It provides functionality to:
 
-1. Cast dates according to the [Anno Domini](https://en.wikipedia.org/wiki/Anno_Domini) (e.g., 399 BC, AD 417) notation system
+1. Cast dates according to the [Anno Domini](https://en.wikipedia.org/wiki/Anno_Domini) notation system (e.g., 399 BC, AD 417)
+1. Handle dates before  AD 1
 1. Cast imprecise dates (c.1860, 18??, fl. 1534, etc)
 1. Normalize dates to machine-readable data types
 1. Create sortable date objects
@@ -24,7 +25,7 @@ First load a string into the `parse` function, which returns a `FlexiDate` objec
 >>> fd = parse('Jan 1890')
 ```
 
-Once you have your date in `FlexiDate` object, you can get access to attributes:
+Once you have your date in a `FlexiDate` object, you can get access to attributes:
 
 ``` python
 >>> fd.year # u'1890'
@@ -47,19 +48,22 @@ datetime.datetime(1890, 1, 1, 0, 0)
 <!--1. TODO: figure out how to do BC years and say this up top -->
 To cast years before AD 1:
 
-To case dates before and after Christ (i.e., Anno Domini or Common Era):
+To case dates before Christ (i.e., Anno Domini or Common Era):
 
 ``` python
 >>> fd = parse('399 BC')
 >>> fd
 <class 'flexidate.FlexiDate'> -0399
+```
+
+Or after:
+``` python
 >>> fd.year
 '-0399'
 >>> fd = parse('AD 417')
 >>> fd
 <class 'flexidate.FlexiDate'> 0417
 ```
-
 
 `FlexiDate` supports hour, minute, second, and microsecond:
 
@@ -77,13 +81,13 @@ To case dates before and after Christ (i.e., Anno Domini or Common Era):
 ``` python
 >>> fd = parse('417?')
 >>> fd
-<class 'flexidate.FlexiDate'> 1890 [Uncertainty : 1890?]
+<class 'flexidate.FlexiDate'>  [b'UNPARSED: 417?']
 >>> fd.qualifier
-'Uncertainty : 1890?'
+b'UNPARSED: 417?'
 ```
 
 ``` python
->>> >>> fd = parse('c. 417')
+>>> fd = parse('c. 417')
 >>> fd
 <class 'flexidate.FlexiDate'> 0417 [Note 'circa' : c. 417]
 >>> fd.qualifier
@@ -98,28 +102,38 @@ To case dates before and after Christ (i.e., Anno Domini or Common Era):
 b'UNPARSED: 177?'
 ```
 
+Comparison of dates:
+
+``` python
+>>> fd1 = parse('399 BC')
+>>> fd2 = parse('AD 200')
+>>> fd1.year < fd2.year
+True
+>>> fd1.year > fd2.year
+False
+```
 
 
 # Developers
 
 To install required development dependencies: `pip install -r requirements.txt`.
 
+Patches are welcome. Please include additional tests where relevant.
+
 ## Run Tests
 
-Tests can be found in `test_flexidate.py`. Run using `python flexidate/test_flexidate.py` or, for a full coverage report, `nosetests --no-skip --with-coverage`. 
+Tests can be found in `flexidate/test_flexidate.py`. Run using `python flexidate/test_flexidate.py` or, for a full coverage report, `nosetests --no-skip --with-coverage`. 
 
 ## Package
 
 To build locally: `python setup install`.
 
-Patches are welcome - please include additional tests where relevant.
-
 
 ## TODO
 
-* Cast dates written in the [Common Era](https://en.wikipedia.org/wiki/Common_Era) notation system (e.g., 399 BCE, 417 CE) 
+* Cast dates written in the [Common Era](https://en.wikipedia.org/wiki/Common_Era) notation system (e.g., 399 BCE, 417 CE)
 
 
-# License.
+# License
 
 MIT. See `LICENSE`.
