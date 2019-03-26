@@ -5,8 +5,8 @@
 
 The `flexidate` library supports date parsing and normalization using the `FlexiDate` class. It provides functionality to:
 
-1. Cast dates according to the [Anno Domini](https://en.wikipedia.org/wiki/Anno_Domini) notation system (e.g., 399 BC, AD 417)
-1. Handle dates before  AD 1
+1. Cast dates according to the [Anno Domini](https://en.wikipedia.org/wiki/Anno_Domini) notation system (e.g., 399 BC, AD 417) as well as the Common Era notation system (e.g., 399 B.C.E, 417 CE)
+1. Handle dates before  AD 1 or 1 CE
 1. Cast imprecise dates (c.1860, 18??, fl. 1534, etc)
 1. Normalize dates to machine-readable data types
 1. Create sortable date objects
@@ -54,13 +54,20 @@ To case dates before Christ (i.e., Anno Domini or Common Era):
 >>> fd = parse('399 BC')
 >>> fd
 <class 'flexidate.FlexiDate'> -0399
+>>> fd.year
+'-0399'
 ```
 
 Or after:
 ``` python
->>> fd.year
-'-0399'
 >>> fd = parse('AD 417')
+>>> fd
+<class 'flexidate.FlexiDate'> 0417
+```
+
+Including with Common Era notation:
+``` python
+>>> fd = parse('417 CE')
 >>> fd
 <class 'flexidate.FlexiDate'> 0417
 ```
@@ -122,7 +129,7 @@ Patches are welcome. Please include additional tests where relevant.
 
 ## Run Tests
 
-Tests can be found in `flexidate/test_flexidate.py`. Run using `python flexidate/test_flexidate.py` or, for a full coverage report, `nosetests --no-skip --with-coverage`. 
+Tests can be found in `flexidate/test_flexidate.py`. Run using `python flexidate/test_flexidate.py` or, for a full coverage report, `nosetests --no-skip --with-coverage`.
 
 ## Package
 
@@ -131,7 +138,7 @@ To build locally: `python setup install`.
 
 ## TODO
 
-* Cast dates written in the [Common Era](https://en.wikipedia.org/wiki/Common_Era) notation system (e.g., 399 BCE, 417 CE)
+* ~~Cast dates written in the [Common Era](https://en.wikipedia.org/wiki/Common_Era) notation system (e.g., 399 BCE, 417 CE)~~
 
 
 # License
