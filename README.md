@@ -5,7 +5,7 @@
 
 The `flexidate` library supports date parsing and normalization using the `FlexiDate` class. It provides functionality to:
 
-1. Cast dates according to the [Anno Domini](https://en.wikipedia.org/wiki/Anno_Domini) notation system (e.g., 399 BC, AD 417) as well as the Common Era notation system (e.g., 399 B.C.E, 417 CE)
+1. Cast dates according to the [Anno Domini](https://en.wikipedia.org/wiki/Anno_Domini) notation system (e.g., 399 BC, AD 417) as well as the [Common Era](https://en.wikipedia.org/wiki/Common_Era) notation system (e.g., 399 B.C.E, 417 CE)
 1. Handle dates before  AD 1 or 1 CE
 1. Cast imprecise dates (c.1860, 18??, fl. 1534, etc)
 1. Normalize dates to machine-readable data types
@@ -67,9 +67,21 @@ Or after:
 
 Including with Common Era notation:
 ``` python
->>> fd = parse('417 CE')
->>> fd
+>>> fd_ce = parse('399 BCE')
+>>> fd_ce
+<class 'flexidate.FlexiDate'> -0399
+>>> fd_ad = parse('399 BC')
+>>> fd_ce.year == fd_ad.year
+True
+```
+
+``` python
+>>> fd_ce = parse('417 CE')
+>>> fd_ce
 <class 'flexidate.FlexiDate'> 0417
+>>> fd_ad = parse('AD 417')
+>>> fd_ce.year == fd_ad.year
+True
 ```
 
 `FlexiDate` supports hour, minute, second, and microsecond:
