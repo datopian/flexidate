@@ -229,8 +229,12 @@ class DateutilDateParser(DateParserBase):
 
         # various normalizations
         # TODO: call .lower() first
+        date = date.replace('B.C.E.', 'BC')
+        date = date.replace('BCE', 'BC')
         date = date.replace('B.C.', 'BC')
         date = date.replace('A.D.', 'AD')
+        date = date.replace('C.E.', 'AD')
+        date = date.replace('CE', 'AD')
 
         # deal with pre 0AD dates
         if date.startswith('-') or 'BC' in date or 'B.C.' in date:
