@@ -22,5 +22,5 @@ script:
   # http://nose.readthedocs.org/en/latest/plugins/skip.html
   - nosetests --no-skip --with-coverage test_flexidate.py
 
-after_success:
-  - codecov
+#after_success:
+#  - codecov

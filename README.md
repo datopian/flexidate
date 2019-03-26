@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/okfn/flexidate.svg?branch=master)](https://travis-ci.org/okfn/flexidate) [![codecov.io](http://codecov.io/github/okfn/flexidate/coverage.svg?branch=master)](http://codecov.io/github/okfn/flexidate?branch=master)
+<!--[![Build Status](https://travis-ci.org/okfn/flexidate.svg?branch=master)](https://travis-ci.org/okfn/flexidate) [![codecov.io](http://codecov.io/github/okfn/flexidate/coverage.svg?branch=master)](http://codecov.io/github/okfn/flexidate?branch=master)-->
 
 
 # About
