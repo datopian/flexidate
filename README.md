@@ -145,7 +145,7 @@ Tests can be found in `flexidate/test_flexidate.py`. Run using `python flexidate
 
 ## Package
 
-To build locally: `python setup install`.
+To build locally: `python -m build` (you need [`build`](https://github.com/pypa/build) for it).
 
 
 ## TODO
