@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.2.0", "wheel", "setuptools_scm[toml]>=3.4.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flexidate"
+authors = [{name = "Open Knowledge Foundation", email = "info@okfn.org"}]
+license = {text = "MIT"}
+description = "Very flexible date parsing and normalization utilities"
+readme = "README.md"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 2.7",
+    "Programming Language :: Python :: 3.3",
+    "Programming Language :: Python :: 3.4",
+    "Programming Language :: Python :: 3.5",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+urls = {Homepage = "http://github.com/okfn/flexidate/"}
+dependencies = ["python-dateutil>=2.5"]
+dynamic = ["version"]
+
+[tool.setuptools]
+packages = ["flexidate"]
+zip-safe = false
+
+[tool.setuptools_scm]
