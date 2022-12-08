@@ -25,7 +25,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-urls = {Homepage = "http://github.com/okfn/flexidate/"}
+urls = {Homepage = "https://github.com/datopian/flexidate"}
 dependencies = ["python-dateutil>=2.5"]
 dynamic = ["version"]
 
